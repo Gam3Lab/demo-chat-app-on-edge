@@ -7,7 +7,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // OpenAI configuration
   const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY,
-    // Using official OpenAI API endpoint
+    baseURL: "https://api.gmgm.dev/v1",
   });
 
   // Get all messages
@@ -24,45 +24,47 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post("/api/messages", async (req, res) => {
     try {
       const { content } = req.body;
-      
-      if (!content || typeof content !== 'string' || content.trim() === '') {
+
+      if (!content || typeof content !== "string" || content.trim() === "") {
         return res.status(400).json({ message: "Message content is required" });
       }
 
       // Save user message
       const userMessage = await storage.createMessage({
         content,
-        role: 'user'
+        role: "user",
       });
 
       try {
         // Call OpenAI API
         const response = await openai.chat.completions.create({
-          model: "gpt-3.5-turbo", // Using a widely available model
+          model: "llama-3-8b", // Using a widely available model
           messages: [
             { role: "system", content: "You are a helpful assistant." },
-            { role: "user", content }
-          ]
+            { role: "user", content },
+          ],
         });
 
-        const assistantContent = response.choices[0].message.content || "I'm sorry, I couldn't generate a response.";
+        const assistantContent =
+          response.choices[0].message.content ||
+          "I'm sorry, I couldn't generate a response.";
 
         // Save assistant message
         const assistantMessage = await storage.createMessage({
           content: assistantContent,
-          role: 'assistant'
+          role: "assistant",
         });
 
         // Return both messages
         res.json({ userMessage, assistantMessage });
       } catch (aiError) {
         console.error("OpenAI API error:", aiError);
-        
+
         // Even if AI response fails, still return the user message
         // and indicate that the AI response failed
-        res.status(200).json({ 
+        res.status(200).json({
           userMessage,
-          error: "Failed to get AI response. Please try again."
+          error: "Failed to get AI response. Please try again.",
         });
       }
     } catch (error) {
