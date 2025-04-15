@@ -17,7 +17,7 @@ A modern, responsive chat application with OpenAI integration that allows users 
 - **Frontend**: React, TypeScript, TailwindCSS, Shadcn UI
 - **Backend**: Node.js, Express
 - **Database**: PostgreSQL with Drizzle ORM
-- **AI Integration**: OpenAI API (GPT-3.5 Turbo)
+- **AI Integration**: GMGM.DEV LLM Gateway
 - **State Management**: TanStack Query (React Query)
 - **Routing**: Wouter
 
