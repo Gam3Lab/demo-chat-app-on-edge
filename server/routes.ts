@@ -6,8 +6,8 @@ import OpenAI from "openai";
 export async function registerRoutes(app: Express): Promise<Server> {
   // OpenAI configuration
   const openai = new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY || 'b923edea894d64280add618e22d458cfcd776305b7e69e5aaace3dc9341f4bd7',
-    baseURL: 'https://api.gmgm.dev/v1'
+    apiKey: process.env.OPENAI_API_KEY,
+    // Using official OpenAI API endpoint
   });
 
   // Get all messages
@@ -38,7 +38,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       try {
         // Call OpenAI API
         const response = await openai.chat.completions.create({
-          model: "gpt-4o", // the newest OpenAI model is "gpt-4o" which was released May 13, 2024. do not change this unless explicitly requested by the user
+          model: "gpt-3.5-turbo", // Using a widely available model
           messages: [
             { role: "system", content: "You are a helpful assistant." },
             { role: "user", content }
