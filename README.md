@@ -2,8 +2,6 @@
 
 A modern, responsive chat application with OpenAI integration that allows users to have AI-powered conversations.
 
-![Chat Interface](https://i.imgur.com/EYi2V6m.png)
-
 ## Features
 
 - 💬 Real-time chat interface with AI responses
@@ -29,14 +27,14 @@ A modern, responsive chat application with OpenAI integration that allows users 
 
 - Node.js (v18+)
 - PostgreSQL database
-- OpenAI API key
+- gmgm.dev API key
 
 ### Environment Variables
 
 The application requires the following environment variables:
 
 - `DATABASE_URL`: PostgreSQL database connection string
-- `OPENAI_API_KEY`: Your OpenAI API key
+- `OPENAI_API_KEY`: Your gmgm.dev API key
 
 ### Installation
 
